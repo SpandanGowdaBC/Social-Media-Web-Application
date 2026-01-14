@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Chat with {{ other_user.username }} - Social Media Platform{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="chat-container">
+        <div class="chat-header">
+            <a href="{% url 'profile' other_user.username %}" class="chat-user-info">
+                {% if other_user.profile.profile_picture %}
+                <img src="{{ other_user.profile.profile_picture.url }}" alt="{{ other_user.username }}" class="chat-avatar">
+                {% else %}
+                <div class="chat-avatar default-avatar-small">{{ other_user.username|first|upper }}</div>
+                {% endif %}
+                <strong>{{ other_user.username }}</strong>
+            </a>
+            <a href="{% url 'chat_list' %}" class="btn btn-sm btn-outline">Back to Messages</a>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            {% for message in messages %}
+            <div class="message-item {% if message.sender == user %}message-sent{% else %}message-received{% endif %}">
+                <div class="message-content">
+                    {{ message.content }}
+                    <div class="message-time">{{ message.created_at|timesince }} ago</div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="empty-state">
+                <p>No messages yet. Start the conversation!</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="chat-input-container">
+            <form id="chatForm" class="chat-form">
+                {% csrf_token %}
+                <input type="text" id="messageInput" placeholder="Type a message..." class="chat-input" autocomplete="off">
+                <button type="submit" class="btn btn-primary chat-send-btn">Send</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    const chatUsername = '{{ other_user.username }}';
+    const currentUser = '{{ user.username }}';
+    let lastMessageId = {% if messages %}{% for msg in messages %}{% if forloop.last %}{{ msg.id }}{% endif %}{% endfor %}{% else %}0{% endif %};
+    
+    // Auto-scroll to bottom
+    function scrollToBottom() {
+        const messagesContainer = document.getElementById('chatMessages');
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+    
+    // Send message
+    document.getElementById('chatForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const input = document.getElementById('messageInput');
+        const content = input.value.trim();
+        
+        if (!content) return;
+        
+        const csrftoken = getCookie('csrftoken');
+        fetch(`/send-message/${chatUsername}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrftoken,
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `content=${encodeURIComponent(content)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                input.value = '';
+                loadMessages();
+            } else {
+                alert(data.error || 'Failed to send message');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to send message');
+        });
+    });
+    
+    // Load new messages
+    function loadMessages() {
+        const csrftoken = getCookie('csrftoken');
+        let url = `/get-messages/${chatUsername}/`;
+        if (lastMessageId > 0) {
+            url += `?last_message_id=${lastMessageId}`;
+        }
+        
+        fetch(url, {
+            headers: {
+                'X-CSRFToken': csrftoken,
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const messagesContainer = document.getElementById('chatMessages');
+            data.messages.forEach(msg => {
+                if (msg.id > lastMessageId) {
+                    lastMessageId = msg.id;
+                }
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message-item ${msg.is_sender ? 'message-sent' : 'message-received'}`;
+                messageDiv.innerHTML = `
+                    <div class="message-content">
+                        ${escapeHtml(msg.content)}
+                        <div class="message-time">${msg.time_display}</div>
+                    </div>
+                `;
+                messagesContainer.appendChild(messageDiv);
+            });
+            
+            if (data.messages.length > 0) {
+                scrollToBottom();
+            }
+        })
+        .catch(error => console.error('Error loading messages:', error));
+    }
+    
+    // Escape HTML
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    // Load messages periodically
+    setInterval(loadMessages, 2000);
+    
+    // Initial scroll
+    scrollToBottom();
+</script>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Feed - Social Media Platform{% endblock %}
+
+{% block content %}
+<div class="feed-container">
+    <div class="feed-main">
+        <div class="posts-feed">
+            {% for post in posts %}
+            <div class="post-card">
+                <div class="post-header">
+                    <a href="{% url 'profile' post.author.username %}" class="post-author">
+                        {% if post.author.profile.profile_picture %}
+                        <img src="{{ post.author.profile.profile_picture.url }}" alt="{{ post.author.username }}" class="author-avatar">
+                        {% else %}
+                        <div class="author-avatar default-avatar">{{ post.author.username|first|upper }}</div>
+                        {% endif %}
+                        <span class="author-name">{{ post.author.username }}</span>
+                    </a>
+                </div>
+                
+                {% if post.image %}
+                <div class="post-media">
+                    <img src="{{ post.image.url }}" alt="Post image" class="post-image">
+                </div>
+                {% elif post.video %}
+                <div class="post-media">
+                    <video controls class="post-video">
+                        <source src="{{ post.video.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                {% endif %}
+                
+                <div class="post-content">
+                    <div class="post-actions">
+                        <button class="like-btn {% if post.id in liked_post_ids %}liked{% endif %}" data-post-id="{{ post.id }}">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                        </button>
+                        <a href="{% url 'post_detail' post.id %}" class="comment-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="post-likes">
+                        <span class="likes-count" data-post-id="{{ post.id }}">{{ post.likes_count }}</span> likes
+                    </div>
+                    <div class="post-text">
+                        <strong>{{ post.author.username }}</strong> {{ post.content }}
+                    </div>
+                    {% if post.tags.all %}
+                    <div class="post-tags">
+                        {% for tag in post.tags.all %}
+                        <a href="{% url 'tag_posts' tag.slug %}" class="tag-link">#{{ tag.name }}</a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <div class="post-time">{{ post.created_at|timesince }} ago</div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="empty-state">
+                <p>No posts yet. Follow users or create your first post!</p>
+                <a href="{% url 'create_post' %}" class="btn btn-primary">Create Post</a>
+            </div>
+            {% endfor %}
+            
+            {% if posts.has_other_pages %}
+            <div class="pagination">
+                {% if posts.has_previous %}
+                <a href="?page={{ posts.previous_page_number }}" class="btn btn-secondary">Previous</a>
+                {% endif %}
+                {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}" class="btn btn-secondary">Next</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

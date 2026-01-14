@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Notifications - Social Media Platform{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="notifications-container">
+        <div class="notifications-header">
+            <h2>Notifications</h2>
+            {% if unread_count > 0 %}
+            <form method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-outline">Mark all as read</button>
+            </form>
+            {% endif %}
+        </div>
+        
+        <div class="notifications-list">
+            {% for notification in notifications %}
+            <div class="notification-item {% if not notification.is_read %}unread{% endif %}">
+                {% if notification.notification_type == 'like' %}
+                <div class="notification-icon">❤️</div>
+                <div class="notification-content">
+                    <a href="{% url 'profile' notification.post.author.username %}">
+                        <strong>{{ notification.post.author.username }}</strong>
+                    </a> liked your post
+                    <a href="{% url 'post_detail' notification.post.id %}" class="notification-link">View post</a>
+                </div>
+                {% elif notification.notification_type == 'comment' %}
+                <div class="notification-icon">💬</div>
+                <div class="notification-content">
+                    <a href="{% url 'profile' notification.comment.user.username %}">
+                        <strong>{{ notification.comment.user.username }}</strong>
+                    </a> commented on your post
+                    <a href="{% url 'post_detail' notification.post.id %}" class="notification-link">View post</a>
+                </div>
+                {% elif notification.notification_type == 'follow' %}
+                <div class="notification-icon">👤</div>
+                <div class="notification-content">
+                    <a href="{% url 'profile' notification.follower.username %}">
+                        <strong>{{ notification.follower.username }}</strong>
+                    </a> started following you
+                    <a href="{% url 'profile' notification.follower.username %}" class="notification-link">View profile</a>
+                </div>
+                {% endif %}
+                <div class="notification-time">{{ notification.created_at|timesince }} ago</div>
+            </div>
+            {% empty %}
+            <div class="empty-state">
+                <p>No notifications yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

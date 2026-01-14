@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}#{{ tag.name }} - Social Media Platform{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="tag-posts-container">
+        <div class="tag-header">
+            <h2>#{{ tag.name }}</h2>
+            <p>{{ tag.usage_count }} posts</p>
+        </div>
+        
+        <div class="posts-grid">
+            {% for post in posts %}
+            <a href="{% url 'post_detail' post.id %}" class="post-thumbnail">
+                {% if post.image %}
+                <img src="{{ post.image.url }}" alt="Post">
+                {% elif post.video %}
+                <div class="video-thumbnail">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                </div>
+                {% else %}
+                <div class="text-post-thumbnail">{{ post.content|truncatewords:10 }}</div>
+                {% endif %}
+                <div class="post-overlay">
+                    <div class="overlay-stats">
+                        <span>❤️ {{ post.likes_count }}</span>
+                        <span>💬 {{ post.comments_count }}</span>
+                    </div>
+                </div>
+            </a>
+            {% empty %}
+            <div class="empty-state">
+                <p>No posts with this tag yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% if posts.has_other_pages %}
+        <div class="pagination">
+            {% if posts.has_previous %}
+            <a href="?page={{ posts.previous_page_number }}" class="btn btn-secondary">Previous</a>
+            {% endif %}
+            {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}" class="btn btn-secondary">Next</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
