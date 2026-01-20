@@ -25,17 +25,58 @@ A modern, full-featured social media application built with a robust Django back
 - **Direct Messaging**: A fully integrated chat system to communicate with your followers instantly.
 - **Real-time Notifications**: Get alerted for new followers, likes, and comments.
 
+### 🔍 Discovery
+- **Trending Tags**: Explore popular hashtags and discover new content.
+- **User Search**: Find and connect with other users on the platform.
+
+---
+
+## 🎯 Live Features Showcase
+
+The application comes with **realistic test data** demonstrating all features in action:
+
+- ✅ **5 Active Users** with complete profiles, bios, and profile pictures
+- ✅ **15+ Posts** with varied content including text, hashtags, and media
+- ✅ **30+ Likes** distributed across posts showing user engagement
+- ✅ **20+ Comments** demonstrating active conversations
+- ✅ **12 Follow Relationships** creating a connected social network
+- ✅ **25+ Direct Messages** showing real-time communication
+- ✅ **Multiple Hashtags** for content categorization and discovery
+- ✅ **Active Notifications** for likes, comments, and follows
+
+**Test Credentials:**
+- Username: `sarah_tech`, `mike_travels`, `emma_designs`, `alex_fitness`, or `lisa_foodie`
+- Password: `password123`
+
+📖 **[View Detailed Feature Documentation →](FEATURES.md)**
+
 ---
 
 ## 📸 Screenshots
 
+### Authentication & Main Feed
 | Login Page | Main Feed |
 | :---: | :---: |
 | ![Login](./screenshots/login.png) | ![Feed](./screenshots/feed.png) |
+| Secure login interface with modern design | Dynamic feed with posts, likes, and comments |
 
-| User Profile | Messaging |
+### User Profiles & Interactions
+| User Profile | Post Details |
 | :---: | :---: |
-| ![Profile](./screenshots/profile.png) | ![Messages](./screenshots/messages.png) |
+| ![Profile](./screenshots/profile.png) | ![Post Detail](./screenshots/post_detail.png) |
+| Profile with followers/following counts | Individual post with comments and likes |
+
+### Messaging & Discovery
+| Direct Messaging | Explore Page |
+| :---: | :---: |
+| ![Messages](./screenshots/messages.png) | ![Explore](./screenshots/explore.png) |
+| Real-time chat with other users | Discover trending tags and popular posts |
+
+### Notifications
+| Notifications Center |
+| :---: |
+| ![Notifications](./screenshots/notifications.png) |
+| Stay updated with likes, comments, and new followers |
 
 ---
 
@@ -70,9 +111,20 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4. Run Migrations & Start Server
+### 4. Run Migrations
 ```bash
 python manage.py migrate
+```
+
+### 5. (Optional) Populate Test Data
+To see the application with realistic demo data:
+```bash
+python populate_data.py
+```
+This will create 5 test users, posts, comments, likes, follows, and messages.
+
+### 6. Start Server
+```bash
 python manage.py runserver
 ```
 
