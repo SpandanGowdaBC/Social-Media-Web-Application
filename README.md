@@ -1,39 +1,62 @@
-# Social Media Platform
+# 🌐 Social Media Platform
 
-A full-featured social media application built with Django (Python) backend and HTML/CSS/JavaScript frontend.
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)
+![Django](https://img.shields.io/badge/django-4.2%2B-green.svg)
 
-## Features
+A modern, full-featured social media application built with a robust Django backend and a sleek, responsive frontend.
 
-### Core Features
-- ✅ User Profiles - Create, view, and edit user profiles with profile pictures and bios
-- ✅ Share Posts - Create posts with text, images, and videos
-- ✅ Like Posts - Like and unlike posts with real-time updates
-- ✅ Comment on Posts - Add comments to posts
-- ✅ Image/Video Uploads - Upload images and videos for posts
-- ✅ Post Tagging - Tag posts with hashtags
+---
 
-### Optional Features
-- ✅ Follow System - Follow and unfollow users, view followers/following lists
-- ✅ Notifications - Real-time notifications for likes, comments, and follows
-- ✅ Trending Content - Explore page with trending posts and popular tags
-- ✅ Messaging - Dynamic chat system to message followers
+## ✨ Features
 
-## Technology Stack
+### 👤 User Core
+- **Advanced Profiles**: Customize your profile with pictures, bios, and personal info.
+- **Secure Auth**: Full registration, login, and secure password management.
+- **Follow System**: Build your network by following other users and managing your followers.
 
-- **Backend**: Django 6.0.1 (Python)
-- **Database**: SQLite
+### 📝 Content & Interaction
+- **Dynamic Posts**: Share text, images, and videos with your audience.
+- **Micro-Interactions**: Like and comment on posts with real-time feedback.
+- **Tagging**: Categorize content with hashtags for better discoverability.
+- **Trending**: Stay updated with the most popular content on the platform.
+
+### ✉️ Messaging
+- **Direct Messaging**: A fully integrated chat system to communicate with your followers instantly.
+- **Real-time Notifications**: Get alerted for new followers, likes, and comments.
+
+---
+
+## 📸 Screenshots
+
+| Login Page | Main Feed |
+| :---: | :---: |
+| ![Login](./screenshots/login.png) | ![Feed](./screenshots/feed.png) |
+
+| User Profile | Messaging |
+| :---: | :---: |
+| ![Profile](./screenshots/profile.png) | ![Messages](./screenshots/messages.png) |
+
+---
+
+## 🛠️ Tech Stack
+
+- **Backend**: [Django](https://www.djangoproject.com/) (Python)
+- **Database**: SQLite (Development)
 - **Frontend**: HTML5, CSS3, JavaScript (ES6+)
-- **UI Design**: Modern responsive design with Instagram-style interface
+- **Storage**: Pillow for image/video processing
 
-## Installation
+---
 
-1. Clone the repository:
+## 🚀 Quick Start
+
+### 1. Clone the repository
 ```bash
 git clone <repository-url>
 cd Social_Media_Apps
 ```
 
-2. Create and activate virtual environment:
+### 2. Setup Virtual Environment
 ```bash
 python -m venv venv
 # Windows
@@ -42,94 +65,43 @@ venv\Scripts\activate
 source venv/bin/activate
 ```
 
-3. Install dependencies:
+### 3. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Run migrations:
+### 4. Run Migrations & Start Server
 ```bash
 python manage.py migrate
-```
-
-5. Create superuser (optional):
-```bash
-python manage.py createsuperuser
-```
-
-6. Run the development server:
-```bash
 python manage.py runserver
 ```
 
-7. Access the application at `http://127.0.0.1:8000/`
+Access the application at `http://127.0.0.1:8000/`
 
-## Project Structure
+---
 
-```
+## 📁 Project Structure
+
+```text
 Social_Media_Apps/
-├── core/                 # Main application
-│   ├── models.py        # Database models
-│   ├── views.py         # View functions
-│   ├── forms.py         # Django forms
-│   ├── urls.py          # URL routing
-│   └── admin.py         # Admin configuration
-├── templates/            # HTML templates
-│   ├── base.html
-│   ├── core/           # Core app templates
-│   └── registration/   # Auth templates
-├── static/              # Static files
-│   ├── css/            # Stylesheets
-│   └── js/             # JavaScript files
-├── media/               # User uploaded files
-├── socialmedia/        # Django project settings
-└── manage.py           # Django management script
+├── core/                 # Main application logic (models, views, forms)
+├── socialmedia/          # Project settings & configuration
+├── templates/            # HTML templates organized by module
+├── static/               # CSS, JS, and image assets
+├── media/                # User-uploaded content (images, videos)
+├── screenshots/          # Documentation assets
+└── manage.py             # Django management CLI
 ```
 
-## Features Overview
+---
 
-### User Authentication
-- User registration and login
-- Profile creation and editing
-- Secure password handling
+## 🤝 Contributing
 
-### Social Features
-- Follow/unfollow users
-- View followers and following lists
-- Real-time notifications
-- Direct messaging with followers
+Contributions are welcome! Please feel free to submit a Pull Request. See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
-### Content Management
-- Create posts with text, images, or videos
-- Tag posts with hashtags
-- Like and comment on posts
-- View trending content
+## 📄 License
 
-### User Interface
-- Modern, responsive design
-- Smooth animations and transitions
-- Mobile-friendly layout
-- Instagram-style interface
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Usage
-
-1. **Sign Up**: Create a new account
-2. **Create Profile**: Add profile picture and bio
-3. **Follow Users**: Follow other users to see their posts
-4. **Create Posts**: Share text, images, or videos
-5. **Interact**: Like and comment on posts
-6. **Explore**: Discover trending content
-7. **Message**: Chat with users you follow
-
-## Development
-
-This project uses Django's built-in development server. For production deployment, configure:
-- Set `DEBUG = False`
-- Configure `ALLOWED_HOSTS`
-- Set up proper database (PostgreSQL recommended)
-- Configure static file serving
-- Set up media file storage (AWS S3 recommended)
-
-## License
-
-This project is developed for educational purposes.
+---
+*Developed with ❤️ by Spandan Gowda*
