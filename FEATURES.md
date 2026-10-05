@@ -93,7 +93,7 @@ All test users have the same password: `password123`
 
 ### 4. Likes & Engagement
 - ✅ Like/unlike posts with a single click
-- ✅ Real-time like count updates
+- ✅ Live-updating like count updates
 - ✅ Visual indication of liked posts
 - ✅ Notifications sent to post authors
 
@@ -139,7 +139,7 @@ All test users have the same password: `password123`
 - ✅ View conversation history
 - ✅ Message read/unread status
 - ✅ Conversation list with latest message preview
-- ✅ Real-time message updates
+- ✅ Live-updating message updates
 
 **Example Conversations:**
 - sarah_tech ↔ emma_designs: "Would love to collaborate sometime!"

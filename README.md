@@ -17,13 +17,13 @@ A modern, full-featured social media application built with a robust Django back
 
 ### 📝 Content & Interaction
 - **Dynamic Posts**: Share text, images, and videos with your audience.
-- **Micro-Interactions**: Like and comment on posts with real-time feedback.
+- **Micro-Interactions**: Like and comment on posts with live-updating feedback.
 - **Tagging**: Categorize content with hashtags for better discoverability.
 - **Trending**: Stay updated with the most popular content on the platform.
 
 ### ✉️ Messaging
 - **Direct Messaging**: A fully integrated chat system to communicate with your followers instantly.
-- **Real-time Notifications**: Get alerted for new followers, likes, and comments.
+- **Live-updating Notifications**: Get alerted for new followers, likes, and comments.
 
 ### 🔍 Discovery
 - **Trending Tags**: Explore popular hashtags and discover new content.
@@ -40,7 +40,7 @@ The application comes with **realistic test data** demonstrating all features in
 - ✅ **30+ Likes** distributed across posts showing user engagement
 - ✅ **20+ Comments** demonstrating active conversations
 - ✅ **12 Follow Relationships** creating a connected social network
-- ✅ **25+ Direct Messages** showing real-time communication
+- ✅ **25+ Direct Messages** showing live-updating communication
 - ✅ **Multiple Hashtags** for content categorization and discovery
 - ✅ **Active Notifications** for likes, comments, and follows
 
@@ -70,7 +70,7 @@ The application comes with **realistic test data** demonstrating all features in
 | Direct Messaging | Explore Page |
 | :---: | :---: |
 | ![Messages](./screenshots/messages.png) | ![Explore](./screenshots/explore.png) |
-| Real-time chat with other users | Discover trending tags and popular posts |
+| Live-updating chat with other users | Discover trending tags and popular posts |
 
 ### Notifications
 | Notifications Center |
